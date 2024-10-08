@@ -32,7 +32,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
                 <div class="card p-2" style="width: 18rem;">
@@ -40,7 +40,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
                 <div class="card p-2" style="width: 18rem;">
@@ -48,7 +48,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
                 <div class="card p-2" style="width: 18rem;">
@@ -56,7 +56,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
                 <div class="card p-2" style="width: 18rem;">
@@ -64,7 +64,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
                 <div class="card p-2" style="width: 18rem;">
@@ -72,7 +72,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
                 <div class="card p-2" style="width: 18rem;">
@@ -80,7 +80,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
                 <div class="card p-2" style="width: 18rem;">
@@ -88,7 +88,7 @@
                         alt="major">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">Major title</h4>
-                        <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                        <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                                 <div class="card-body d-flex flex-column gap-1 justify-content-center">
                                     <h4 class="card-title fw-bold text-center">Doctor Name</h4>
                                     <h6 class="card-title fw-bold text-center">Major</h6>
-                                    <a href="{{route("doctor.index")}}" class="btn btn-outline-primary card-button">Browse
+                                    <a href="{{route("doctors.index")}}" class="btn btn-outline-primary card-button">Browse
                                         Doctors</a>
                                 </div>
                             </div>

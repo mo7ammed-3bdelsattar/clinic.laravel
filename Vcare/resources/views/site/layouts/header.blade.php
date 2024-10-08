@@ -9,8 +9,8 @@
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <div class="d-flex gap-3 flex-wrap justify-content-center" role="group">
                 <a type="button" class="btn navigation--button text-white" href="{{route("home.index")}}">Home</a>
-                <a type="button" class="btn navigation--button text-white" href="{{route("major.index")}}">majors</a>
-                <a type="button" class="btn navigation--button text-white" href="{{route("doctor.index")}}">Doctors</a>
+                <a type="button" class="btn navigation--button text-white" href="{{route("majors.index")}}">majors</a>
+                <a type="button" class="btn navigation--button text-white" href="{{route("doctors.index")}}">Doctors</a>
                 <a type="button" class="btn navigation--button text-white" href="{{route("login.index")}}">login</a>
             </div>
         </div>
