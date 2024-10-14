@@ -1,6 +1,13 @@
 @extends('admin.master')
-@section('title','Home')
+@section('title','Dashboard')
 @section('homeActivity','active')
+@section('loading')
+<!-- Preloader -->
+<div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="{{asset('admin')}}/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+</div>
+
+@endsection
 @section('content')
 
 <!-- Main content -->
@@ -116,8 +123,8 @@
             <!-- /.card-footer -->
         </div>
         <!-- /.card -->
-         <!-- TABLE: LATEST MEMBERS -->
-         <div class="row">
+        <!-- TABLE: LATEST MEMBERS -->
+        <div class="row">
             <div class="col-md-6">
                 <!-- USERS LIST -->
                 <div class="card">
@@ -138,7 +145,7 @@
                     <div class="card-body p-0">
                         <ul class="users-list clearfix">
                             <li>
-                                <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                                <img src="{{asset('admin')}}/dist/img/user1-128x128.jpg" alt="User Image">
                                 <a class="users-list-name" href="#">Alexander Pierce</a>
                                 <span class="users-list-date">Today</span>
                             </li>
