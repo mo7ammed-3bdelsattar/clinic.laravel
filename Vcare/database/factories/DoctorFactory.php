@@ -23,7 +23,7 @@ class DoctorFactory extends Factory
             'adress'=>fake()->address(),
             'dates'=>fake()->dayOfWeek,
             'visitors'=>fake()->numberBetween(0,10),
-            'user_id'=>fake()->numberBetween(1,25),
+            'user_id'=>fake()->unique()->numberBetween(1,25),
         ];
     }
 }

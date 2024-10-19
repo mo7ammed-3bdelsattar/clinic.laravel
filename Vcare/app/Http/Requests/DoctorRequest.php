@@ -13,7 +13,7 @@ class DoctorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class DoctorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|email|unique:users,email',
+            'phone'         => 'nullable|string',
+            'image'         => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'dates'         => 'nullable|min:3',
+            'address'       => 'nullabe|string|min:5|max:100',
+            'major_id'      => 'required|integer|exists:majors,id',
+            'user_id'       => 'required|integer|exists:users,id',
         ];
     }
 }
