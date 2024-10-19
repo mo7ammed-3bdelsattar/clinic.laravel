@@ -22,6 +22,8 @@ class DoctorFactory extends Factory
             'phone'=>fake()->unique()->phoneNumber(),
             'adress'=>fake()->address(),
             'dates'=>fake()->dayOfWeek,
+            'visitors'=>fake()->numberBetween(0,10),
+            'user_id'=>fake()->numberBetween(1,25),
         ];
     }
 }

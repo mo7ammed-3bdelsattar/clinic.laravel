@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('dates')->nullable();
             $table->string('adress')->nullable();
-            $table->foreignId('major_id')->constrained('majors')->cascadeOnDelete();
+            $table->foreignId('major_id')->constrained('majors');
+            $table->foreignId('user_id')->constrained('users');
             $table->integer('visitors')->nullable();
             $table->timestamps();
         });

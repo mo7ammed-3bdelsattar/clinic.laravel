@@ -13,9 +13,15 @@ class Doctor extends Model
         'email',
         'phone',
         'adress',
+        'visitors',
         'dates',
+        'user_id',
     ];
     public function major(){
         return $this->belongsTo(Major::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
 }

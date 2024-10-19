@@ -1,3 +1,9 @@
+<?php
+
+use Illuminate\Support\Facades\Auth;
+$admin =Auth::user();
+?>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -12,8 +18,8 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <a href="{{route('admin.profile')}}" class="d-block">
-                    <img src="{{asset('admin')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2 " alt="User Image">
-                    <span class="brand-text font-weight-light">Alexander Pierce</span>
+                    <img src="{{FileHelper::get_file_path($admin->image,'user')}}" class="img-circle elevation-2 " alt="User Image">
+                    <span class="brand-text font-weight-light">{{$admin->name}}</span>
                 </a>
             </div>
         </div>
