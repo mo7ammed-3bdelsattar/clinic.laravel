@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -21,8 +21,9 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('dates')->nullable();
             $table->string('adress')->nullable();
+            $table->string('price');
             $table->foreignId('major_id')->constrained('majors');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('admin_id')->constrained('admins');
             $table->integer('visitors')->nullable();
             $table->timestamps();
         });

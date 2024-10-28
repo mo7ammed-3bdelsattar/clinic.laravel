@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminProfileController extends Controller
 {
     public function __invoke(Request $request){
-        $admin=Auth::user();
+        $admin=Auth::guard('admin')->user();
         return view('admin.pages.profile.index',compact('admin'));
     }
 }

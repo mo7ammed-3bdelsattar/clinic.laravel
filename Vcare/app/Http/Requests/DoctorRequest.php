@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+use Toastr;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -31,7 +32,9 @@ class DoctorRequest extends FormRequest
             'dates'         => 'nullable|min:3',
             'address'       => 'nullabe|string|min:5|max:100',
             'major_id'      => 'required|integer|exists:majors,id',
-            'user_id'       => 'required|integer|exists:users,id',
+            'admin_id'       => 'required|integer|exists:admins,id',
         ];
+        
     }
+    
 }

@@ -3,8 +3,8 @@
 @section('usersActivity','active')
 @section('content')
 <div class="container">
-    @include('admin.inc.success')
-    @include('admin.inc.errors')
+    @include('inc.success')
+    @include('inc.errors')
     <div class="card">
         <div class="card-header border-transparent">
             <a href="{{route('admin.users.create')}}" class="btn btn-sm btn-info float-left">Place New user</a>

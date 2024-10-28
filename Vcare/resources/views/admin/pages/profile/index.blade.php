@@ -16,7 +16,7 @@
 
                         <h3 class="profile-username text-center">{{$admin->name}}</h3>
 
-                        <p class="text-muted text-center">Admin</p>
+                        <p class="text-muted text-center">{{$admin->type}}</p>
 
                     </div>
                     <!-- /.card-body -->
@@ -30,35 +30,27 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <strong><i class="fas fa-book mr-1"></i> Education</strong>
+                        <strong><i class="fas fa-inbox mr-1"></i>Email</strong>
 
                         <p class="text-muted">
-                            B.S. in Computer Science from the University of Tennessee at Knoxville
+                            {{$admin->email}}
                         </p>
 
                         <hr>
-
+                        @if ($admin->type=='doctor')
+                        
+                        
                         <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
 
-                        <p class="text-muted">Malibu, California</p>
-
+                        <p class="text-muted">{{$admin->doctor->adress}}</p>
                         <hr>
+                        @endif
 
-                        <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
+                        <strong><i class="fas fa-phone mr-1"></i>Phone</strong>
 
                         <p class="text-muted">
-                            <span class="tag tag-danger">UI Design</span>
-                            <span class="tag tag-success">Coding</span>
-                            <span class="tag tag-info">Javascript</span>
-                            <span class="tag tag-warning">PHP</span>
-                            <span class="tag tag-primary">Node.js</span>
+                            {{$admin->phone}}
                         </p>
-
-                        <hr>
-
-                        <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                     </div>
                     <!-- /.card-body -->
                 </div>

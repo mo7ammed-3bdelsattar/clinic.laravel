@@ -17,9 +17,11 @@
                     <a href="{{route("home.index")}}" class="link text-white">Home</a>
                     <a href="{{route("majors.index")}}" class="link text-white">Majors</a>
                     <a href="{{route(name: "doctors.index")}}" class="link text-white">Doctors</a>
+                    <a href="{{route("contact.index")}}" class="link text-white">Contact</a>
+                    @if (!Auth::user())
                     <a href="{{route(name: "login.index")}}" class="link text-white">Login</a>
                     <a href="{{route(name: "register.index")}}" class="link text-white">Register</a>
-                    <a href="{{route("contact.index")}}" class="link text-white">Contact</a>
+                    @endif
                 </div>
             </div>
         </div>

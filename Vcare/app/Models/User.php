@@ -23,7 +23,6 @@ class User extends Authenticatable
         'phone',
         'image',
         'password',
-        'type',
     ];
 
     /**
@@ -44,7 +43,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function doctor(){
-        return $this->hasOne(Doctor::class);
-    } 
+    
 }

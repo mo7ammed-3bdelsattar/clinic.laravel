@@ -21,9 +21,10 @@ class DoctorFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone'=>fake()->unique()->phoneNumber(),
             'adress'=>fake()->address(),
-            'dates'=>fake()->dayOfWeek,
+            'dates'=>strtolower(fake()->dateTimeBetween('now', '+1 week')->format('D-d/M-Y')),
+            'price'=>fake()->randomElement([200,250,300,350,400]),
             'visitors'=>fake()->numberBetween(0,10),
-            'user_id'=>fake()->unique()->numberBetween(1,25),
+            'admin_id'=>fake()->unique()->numberBetween(1,25),
         ];
     }
 }

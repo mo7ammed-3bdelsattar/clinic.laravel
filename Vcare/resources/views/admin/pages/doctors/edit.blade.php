@@ -45,14 +45,16 @@
                 @enderror
             </div>
             <div class="form-group">
-            <label for="user_id">UserID</label>
-            <select class="form-select form-control" aria-label="Default select example" name="user_id">
-                <option value="{{$doctor->user_id}}" selected>{{$doctor->user->name}}</option>
-                @foreach ($users as $user )
-                <option value="{{$user->id}}">{{$user->name}}</option>
+            <label for="admin_id">AdminID</label>
+            <select class="form-select form-control" aria-label="Default select example" name="admin_id">
+                @if ($doctor->admin_id)
+                <option value="{{$doctor->admin_id}}" selected>{{$doctor->admin->name}}</option>
+                @foreach ($admins as $admin )
+                <option value="{{$admin->id}}">{{$admin->name}}</option>
                 @endforeach
+                @endif  
             </select>
-            @error('user_id')
+            @error('admin_id')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Doctor extends Model
 {
@@ -15,14 +15,19 @@ class Doctor extends Model
         'adress',
         'image',
         'dates',
-        'user_id',
+        'price',
+        'admin_id',
         'major_id',
     ];
     public function major(){
         return $this->belongsTo(Major::class);
     }
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function admin(){
+        return $this->belongsTo(Admin::class);
+    }
+     public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class, 'reservation_doctor');
     }
     
 }

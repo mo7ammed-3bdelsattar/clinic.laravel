@@ -11,15 +11,21 @@
         </ol>
     </nav>
     <div class="d-flex flex-column gap-3 account-form  mx-auto mt-5">
-        <form class="form">
-
+        <form class="form" action="{{route('auth.login')}}" method="POST">
+            @csrf
             <div class="mb-3">
                 <label class="form-label required-label" for="email">Email</label>
-                <input type="email" class="form-control" id="email" required>
+                <input type="email" name="email" class="form-control" id="email" >
+                @error('email')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
             <div class="mb-3">
                 <label class="form-label required-label" for="password">password</label>
-                <input type="password" class="form-control" id="password" required>
+                <input type="password" name="password" class="form-control" id="password" >
+                @error('password')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>

@@ -3,30 +3,35 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
-use App\Models\User;
+use App\Models\Admin;
 use App\Models\Major;
 use App\Models\Doctor;
+use Yoeunes\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DoctorRequest;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class AdminDoctorController extends Controller
 {
     public function index()
     {
+        abort_if(Gate::allows('doctor'),403);
         $doctors=Doctor::orderBy('id','desc')->paginate(10);
         return view('admin.pages.doctors.index',compact('doctors'));
     }
     public function edit(Doctor $doctor)
     {
+        abort_if(Gate::denies('admin'),403);
         $majors=Major::get();
-        $users=User::where('type','patient')->get();
-        return view('admin.pages.doctors.edit',compact(['doctor','majors','users']));
+        $admins=Admin::where('type','!=','doctor')->get();
+        return view('admin.pages.doctors.edit',compact(['doctor','majors','admins']));
     }
     public function update(DoctorRequest $request, Doctor $doctor)
     {
+        abort_if(Gate::denies('admin'),403);
         $data = $request->validated();
         if ($request->hasFile('image')) {
             if ($doctor->image) {
@@ -36,23 +41,25 @@ class AdminDoctorController extends Controller
             $filename = $image->store('/doctors', 'public');
             $data['image'] = $filename;
         }
-        if($request->user_id){
-            $user=User::where('id','user_id')->get();
-            $user->type='doctor';
+        if($request->admin_id){
+            $admin=Admin::where('id','admin_id')->get();
+            $admin->type='doctor';
         }
         Doctor::where('id', $doctor->id)->update($data);
-        return redirect()->route('admin.doctors.index')->with('success', 'Doctor updated successfully');
+        return redirect()->route('admin.doctors.index')->with('success', 'doctor updated successfully');
     }
     public function create()
     {
+        abort_if(Gate::allows('doctor'),403);
         $majorSelected=Major::get()->first();
-        $userSelected=User::where('type','patient')->get()->first();
+        $adminSelected=Admin::where('type','!=','doctor')->get()->first();
         $majors=Major::get();
-        $users=User::where('type','patient')->get();
-        return view('admin.pages.doctors.create',compact(['majors','users','majorSelected','userSelected']));
+        $admins=Admin::where('type','!=','doctor')->get();
+        return view('admin.pages.doctors.create',compact(['majors','admins','majorSelected','adminSelected']));
     }
         public function store(DoctorRequest $request)
     {
+        abort_if(Gate::allows('doctor'),403);
         try{   
         $data = $request->validated();
         if ($request->hasFile('image')) {
@@ -60,8 +67,8 @@ class AdminDoctorController extends Controller
             $filename = $image->store('/doctors', 'public');
             $data['image'] = $filename;
         }
-        if($request->has('user_id')){
-            User::where('id', $request->user_id)->update(['type'=>'doctor']);            
+        if($request->has('admin_id')){
+            Admin::where('id', $request->admin_id)->update(['type'=>'doctor']);            
         }
         Doctor::create($data);
         return redirect()->route('admin.doctors.index')->with('success', 'doctor added successfully');
@@ -71,6 +78,7 @@ class AdminDoctorController extends Controller
     }
     public function destroy(Doctor $doctor)
     {
+        abort_if(Gate::allows('doctor'),403);
         $imagePath = null;
         if ($doctor->image) {
             $imagePath = $doctor->image;

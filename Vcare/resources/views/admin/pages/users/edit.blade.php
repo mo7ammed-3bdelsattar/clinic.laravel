@@ -38,18 +38,6 @@
                 @enderror
             </div>
             <div class="form-group">
-            <label for="type">Type</label>
-            <select class="form-select form-control" aria-label="Default select example" name="type" >
-                <option value="{{$user->type}}" selected>{{$user->type}}</option>
-                <option value="manager">Manager</option>
-                <option value="admin">Admin</option>
-                <option value="doctor">Doctor</option>
-            </select>
-            @error('type')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-            <div class="form-group">
                 <label for="exampleInputFile">Image</label>
                 <div class="input-group">
                     <div class="custom-file">

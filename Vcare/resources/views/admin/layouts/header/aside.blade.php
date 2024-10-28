@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-$admin =Auth::user();
+$admin =Auth::guard('admin')->user();
 ?>
 
 <!-- Main Sidebar Container -->
@@ -9,7 +9,7 @@ $admin =Auth::user();
     <!-- Brand Logo -->
     <a href="{{route('admin.dashboard')}}" class="brand-link">
         <img src="{{asset('admin')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light"> <b>{{env('APP_NAME')}}</b>Dashboard </span>
     </a>
 
     <!-- Sidebar -->
@@ -43,10 +43,17 @@ $admin =Auth::user();
                                 <p>Dashboard</p>
                             </a>
                         </li>
+                        @if (Gate::denies('doctor'))
                         <li class="nav-item">
                             <a href="{{route('admin.majors.index')}}" class="nav-link @yield('majorsActivity')">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Majors</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.admins.index')}}" class="nav-link @yield('adminsActivity')">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Admins</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -61,6 +68,7 @@ $admin =Auth::user();
                                 <p>Users</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
             </ul>

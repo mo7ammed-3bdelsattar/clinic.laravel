@@ -3,8 +3,8 @@
 @section('doctorsActivity','active')
 @section('content')
 <div class="container">
-    @include('admin.inc.success')
-    @include('admin.inc.errors')
+    @include('inc.success')
+    @include('inc.errors')
     <div class="card">
         <div class="card-header border-transparent">
             <a href="{{route('admin.doctors.create')}}" class="btn btn-sm btn-info float-left">Place New Doctor</a>
@@ -45,7 +45,9 @@
                                 <td>{{$doctor->major->title}}</td>
                                 <td>{{$doctor->dates}}</td>
                                 <td>
+                                    @if (Gate::denies('manager'))
                                     <a class="btn btn-warning" href="{{route('admin.doctors.edit',$doctor->id)}}">Edit</a>
+                                    @endif
                                     <div class="btn-group" role="group">
                                         <form class="d-inline" action="{{route('admin.doctors.destroy',$doctor->id)}}" method="post">
                                             @csrf

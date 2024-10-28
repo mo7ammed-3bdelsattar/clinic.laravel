@@ -3,6 +3,7 @@
 
 @section('content')
 @include('site.layouts.header')
+@include('inc.success')
 <div class="container-fluid bg-blue text-white pt-3">
     <div class="container pb-0">
         <div class="row gap-2">

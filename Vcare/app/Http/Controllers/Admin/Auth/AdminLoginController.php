@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AdminLoginController extends Controller
 {
 
     public function index()
     {
+        if(Auth::guard('admin')->user()){return redirect()->back();}
         return view('admin.pages.login');
     }
     public function authenticate(Request $request){
@@ -20,7 +22,7 @@ class AdminLoginController extends Controller
             'password' => ['required'],
         ]);
  
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/admin/home',);
         }

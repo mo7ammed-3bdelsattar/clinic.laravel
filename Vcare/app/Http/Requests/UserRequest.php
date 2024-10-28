@@ -29,7 +29,6 @@ class UserRequest extends FormRequest
             'phone'         => 'nullable|string',
             'image'         => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'password'      => 'required|string|min:6',
-            'type'          => 'nullable|in:admin,manager,doctor,patient',
         ];
     }
 }
