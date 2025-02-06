@@ -26,8 +26,8 @@ use App\Http\Controllers\Site\Auth\RegisterController;
 |
 */
 
+Route::get('/', HomeController::class)->name('home.index');
 Route::prefix('site')->group(function () {
-    Route::get('/home', HomeController::class)->name('home.index');
     Route::get('majors', MajorController::class)->name('majors.index');
     Route::get('doctors', DoctorController::class)->name('doctors.index');
     Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
@@ -36,7 +36,6 @@ Route::prefix('site')->group(function () {
     Route::post('login', [LoginController::class, 'authenticate'])->name('auth.login');
     Route::get('register', [RegisterController::class, 'index'])->name('register.index');
     Route::middleware('auth')->get('logout', LogoutController::class)->name('auth.logout');
-
 });
 Route::get('mail/booking', MailController::class)->name('mail.booking');
 require_once('admin.php');

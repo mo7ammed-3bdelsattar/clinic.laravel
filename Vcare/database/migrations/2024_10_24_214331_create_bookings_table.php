@@ -13,21 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reservation_doctor', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->constrained()->onDelete('cascade');
-            $table->foreignId('reservation_id')->constrained()->onDelete('cascade');
+            $table->enum('status',['pending','visited','canceled'])->default('pending');
+            $table->foreignId('patient_id')->constrained('patients')->cascadeOnDelete();
+            $table->foreignId('appointment_id')->constrained('appointments')->cascadeOnDelete();
             $table->timestamps();
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('reservation_doctor');
+        Schema::dropIfExists('bookings');
     }
 };
