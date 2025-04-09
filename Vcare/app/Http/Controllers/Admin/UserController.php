@@ -11,11 +11,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class AdminUserController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        $users=User::orderBy('id','desc')->paginate(10);
+        $users=User::with('image')->orderBy('id','desc')->paginate(10);
         return view('admin.pages.users.index',compact('users'));
     }
     public function edit(User $user)

@@ -11,12 +11,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{FileHelper::get_file_path($admin->image,'user')}}" alt="User profile picture">
-                        </div>
-
-                        <h3 class="profile-username text-center">{{$admin->name}}</h3>
-
-                        <p class="text-muted text-center">{{$admin->type}}</p>
+                        <p class="text-muted text-center">{{$admin->type->label()}}</p>
 
                     </div>
                     <!-- /.card-body -->

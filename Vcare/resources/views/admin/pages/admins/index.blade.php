@@ -27,6 +27,7 @@
                                 <th>Phone</th>
                                 <th>Image</th>
                                 <th>Type</th>
+                                <th>Gender</th>
                                 @if (Gate::denies('manager'))
                                 <th>Actions</th>
                                 @endif
@@ -37,20 +38,19 @@
 
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{substr($admin->name,0,6).".."}}</td>
-                                <td>{{substr($admin->email,0,15).".."}}</td>
-                                <td>{{substr($admin->phone,0,11).".."}}</td>
+                                <td>{{substr($admin->user->name,0,6).".."}}</td>
+                                <td>{{substr($admin->user->email,0,15).".."}}</td>
+                                <td>{{substr($admin->user->phone,0,11).".."}}</td>
                                 <td>
-                                    <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($admin->image,'admin')}}" alt="Image" width="100" height="100">
+                                    <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($admin->user->image?->path,'user')}}" alt="Image" width="100" height="100">
                                 </td>
-                                @if ($admin->type=='admin')
+                                @if ($admin->user->type->label()=='Admin')
                                     <?php $badge='badge-danger'?>
-                                @elseif($admin->type=='manager')
+                                @elseif($admin->user->type->label()=='Manager')
                                     <?php $badge='badge-warning'?>
-                                @elseif($admin->type=='doctor')
-                                    <?php $badge='badge-success'?>
                                 @endif
-                                <td><span class="badge {{$badge}}">{{$admin->type}}</span></td>
+                                <td><span class="badge {{$badge}}">{{$admin->user->type->label()}}</span></td>
+                                <td>{{$admin->user->gender->label()}}</td>
                                 @if (Gate::denies('manager'))
                                 <td>
                                     <a class="btn btn-warning" href="{{route('admin.admins.edit',$admin->id)}}">Edit</a>

@@ -36,11 +36,11 @@
 
                             <tr>
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{substr($doctor->name,0,6).".."}}</td>
-                                <td>{{substr($doctor->email,0,15).".."}}</td>
-                                <td>{{substr($doctor->phone,0,11).".."}}</td>
+                                <td>{{substr($doctor->user->name,0,6).".."}}</td>
+                                <td>{{substr($doctor->user->email,0,15).".."}}</td>
+                                <td>{{substr($doctor->user->phone,0,11).".."}}</td>
                                 <td>
-                                    <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($doctor->image,'user')}}" alt="Image" width="100" height="100">
+                                    <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($doctor->user->image?->path,'user')}}" alt="Image" width="100" height="100">
                                 </td>
                                 <td>{{$doctor->major->title}}</td>
                                 <td>{{$doctor->dates}}</td>

@@ -31,40 +31,63 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="adress">Adress</label>
-                <textarea name="adress" id="adress" cols="30" rows="10" class="form-control"></textarea>
-                @error('adress')
+                <label for="address">address</label>
+                <textarea name="address" id="address" class="form-control"></textarea>
+                @error('address')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
+
             <div class="form-group">
-                <label for="dates">Dates</label>
-                <input type="text" name="dates" class="form-control" id="dates" placeholder="Enter Dates">
-                @error('dates')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-            <label for="admin_id">AdminID</label>
-            <select class="form-select form-control" aria-label="Default select example" name="admin_id">
-                <option value="{{$adminSelected->id}}" selected>{{$adminSelected->name}}</option>
-                @foreach ($admins as $admin )
-                <option value="{{$admin->id}}">{{$admin->name}}</option>
-                @endforeach
-            </select>
-            @error('admin_id')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-            <div class="form-group">
-            <label for="major_id">MajorID</label>
+            <label for="major_id">Major</label>
             <select class="form-select form-control" aria-label="Default select example" name="major_id">
-                <option value="{{$majorSelected->id}}" selected>{{$majorSelected->title}}</option>
+                <option disabled selected>select Major</option>
                 @foreach ($majors as $major )
                 <option value="{{$major->id}}">{{$major->title}}</option>
                 @endforeach
             </select>
             @error('major_id')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select class="form-select form-control" aria-label="Default select example" name="type">
+                    <option value="" disabled selected>Select Type</option>
+                    @foreach ($types as $type) 
+                    <option value="{{ $type}}">{{
+                        App\Enums\UserTypesEnum::from($type)->label() }}</option>
+                    @endforeach
+                </select>
+                @error('type')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-select form-control" aria-label="Default select example" name="gender">
+                    <option value="" disabled selected>Select Gender</option>
+                    @foreach ($genders as $gender)
+                    <option value="{{ $gender }}" {{ old('gender')==$gender ? 'selected' : '' }}>
+                        {{ \App\Enums\UserGendersEnum::from($gender)->label() }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('gender')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="price">price</label>
+                <input type="text" name="price" class="form-control" id="price" placeholder="Enter price">
+                @error('price')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Enter Password">
+                @error('password')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>

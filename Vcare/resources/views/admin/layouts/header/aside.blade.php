@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Auth;
 $admin =Auth::guard('admin')->user();
 ?>
@@ -18,7 +17,7 @@ $admin =Auth::guard('admin')->user();
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <a href="{{route('admin.profile')}}" class="d-block">
-                    <img src="{{FileHelper::get_file_path($admin->image,'user')}}" class="img-circle elevation-2 " alt="User Image">
+                    <img src="{{FileHelper::get_file_path($admin->image?->path,'user')}}" class="img-circle elevation-2 " alt="User Image">
                     <span class="brand-text font-weight-light">{{$admin->name}}</span>
                 </a>
             </div>

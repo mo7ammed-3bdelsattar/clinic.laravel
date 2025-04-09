@@ -11,55 +11,69 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name" value="{{$doctor->name}}">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name" value="{{$doctor->user->name}}">
                 @error('name')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" value="{{$doctor->email}}">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" value="{{$doctor->user->email}}">
                 @error('email')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="text" name="phone" class="form-control" id="phone" placeholder="Enter Phone" value="{{$doctor->phone}}">
+                <input type="text" name="phone" class="form-control" id="phone" placeholder="Enter Phone" value="{{$doctor->user->phone}}">
                 @error('phone')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="adress">Adress</label>
-                <textarea name="adress" id="adress" cols="30" rows="10" class="form-control">{{$doctor->adress}}</textarea>
-                @error('adress')
+                <label for="address">Address</label>
+                <textarea name="address" id="address" class="form-control">{{$doctor->address}}</textarea>
+                @error('address')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="dates">Dates</label>
-                <input type="text" name="dates" class="form-control" id="dates" placeholder="Enter Dates" value="{{$doctor->dates}}">
-                @error('dates')
+                <label for="price">price</label>
+                <input type="text" name="price" class="form-control" id="price" placeholder="Enter price" value="{{$doctor->price}}">
+                @error('price')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
-            <label for="admin_id">AdminID</label>
-            <select class="form-select form-control" aria-label="Default select example" name="admin_id">
-                @if ($doctor->admin_id)
-                <option value="{{$doctor->admin_id}}" selected>{{$doctor->admin->name}}</option>
-                @foreach ($admins as $admin )
-                <option value="{{$admin->id}}">{{$admin->name}}</option>
-                @endforeach
-                @endif  
-            </select>
-            @error('admin_id')
+                <label for="type">Type</label>
+                <select class="form-select form-control" aria-label="Default select example" name="type">
+                    <option value="{{ $doctor->user->type }}" selected>{{ $doctor->user->type->label() }}</option>
+                    @foreach ($types as $type) 
+                    <option value="{{ $type}}">{{
+                        App\Enums\UserTypesEnum::from($type)->label() }}</option>
+                    @endforeach
+                </select> 
+                @error('type')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
-            <label for="major_id">MajorID</label>
+                <label for="gender">Gender</label>
+                <select class="form-select form-control" aria-label="Default select example" name="gender">
+                    <option value="{{ $doctor->user->gender }}" selected>{{ $doctor->user->gender->label() }}
+                    </option>
+                    @foreach ($genders as $gender)
+                    <option value="{{ $gender }}" {{ old('gender')==$gender ? 'selected' : '' }}>
+                        {{ \App\Enums\UserGendersEnum::from($gender)->label() }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('gender')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+            <label for="major_id">Major</label>
             <select class="form-select form-control" aria-label="Default select example" name="major_id">
                 <option value="{{$doctor->major_id}}" selected>{{$doctor->major->title}}</option>
                 @foreach ($majors as $major )
@@ -67,6 +81,13 @@
                 @endforeach
             </select>
             @error('major_id')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" value="{{$doctor->user->password}}"  name="password" class="form-control" id="password" placeholder="Enter Password">
+                @error('password')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>

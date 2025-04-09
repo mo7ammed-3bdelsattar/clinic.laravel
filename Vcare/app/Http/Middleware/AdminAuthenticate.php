@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
 
@@ -17,8 +18,10 @@ class AdminAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!Auth::guard('admin')->check()){
-            return redirect()->route('admin.auth.login.index');
+        $user = Auth::guard('admin')->user();
+
+        if (!$user || !Admin::where('user_id', $user->id)->exists()) {
+            return redirect()->route('admin.auth.login.index')->withErrors(['error' => 'You are not have permission to access this page']);
         }
         return $next($request);
     }

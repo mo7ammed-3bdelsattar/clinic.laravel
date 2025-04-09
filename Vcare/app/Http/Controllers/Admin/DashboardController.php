@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Gate;
  * Class AdminDashboardController
  * @package App\Http\Controllers\Admin
  */
-class AdminDashboardController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Handle the incoming request.

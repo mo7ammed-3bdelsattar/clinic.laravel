@@ -11,8 +11,13 @@ class LogoutController extends Controller
 {
     public function __invoke()
     {
+        if(Auth::user()) {
+            $route= 'login.index';
+        } else if(Auth::guard('admin')->check()) {
+            $route='admin.auth.login.index';
+        }
         Session::flush();
         Auth::logout();
-        return redirect()->route('login.index');
+        return redirect()->route($route);
     }
 }

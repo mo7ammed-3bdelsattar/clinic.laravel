@@ -1,3 +1,4 @@
+
 @extends('admin.master')
 @section('title','Majors')
 @section('majorsActivity','active')
@@ -29,11 +30,12 @@
                     </thead>
                     <tbody>
                         @foreach ($majors as $major )
+                    
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$major->title}}</td>
                             <td>
-                                <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($major->image)}}" alt="Image" width="100" height="100">
+                                <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($major->image?->path)}}" alt="Image" width="100" height="100">
                             </td>
                             <td>
                                 <a class="btn btn-warning" href="{{route('admin.majors.edit',$major->id)}}">Edit</a>

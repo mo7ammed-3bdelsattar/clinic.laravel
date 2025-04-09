@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AdminRequest extends FormRequest
@@ -23,13 +24,15 @@ class AdminRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'          => 'required|string|max:255',
-            'email'         => 'required|email|unique:users,email',
-            'phone'         => 'nullable|string',
-            'image'         => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
-            'password'      => 'required|string|min:6',
-            'type'          => 'nullable|in:admin,manager,doctor',
+        $userRules = UserRequest::rules(); 
+        $adminRules = [
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore(($this->admin)?$this->admin->user:null),
+            ],
         ];
+
+        return array_merge($userRules, $adminRules);
     }
 }

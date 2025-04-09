@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 use Toastr;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DoctorRequest extends FormRequest
@@ -24,16 +25,19 @@ class DoctorRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'          => 'required|string|max:255',
-            'email'         => 'required|email|unique:users,email',
-            'phone'         => 'nullable|string',
-            'image'         => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
-            'dates'         => 'nullable|min:3',
-            'address'       => 'nullabe|string|min:5|max:100',
-            'major_id'      => 'required|integer|exists:majors,id',
-            'admin_id'       => 'required|integer|exists:admins,id',
+        $userRules = UserRequest::rules(); 
+        $doctorRules = [
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email')->ignore(($this->doctor)?$this->doctor->user:null),
+            ],
+            'price' => 'required|numeric',
+            'address'=> 'nullable|string',
+            'major_id' => 'required|exists:majors,id',
         ];
+
+        return array_merge($userRules, $doctorRules);
         
     }
     

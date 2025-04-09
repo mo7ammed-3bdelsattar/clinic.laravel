@@ -35,7 +35,7 @@ Route::prefix('site')->group(function () {
     Route::get('login', [LoginController::class, 'index'])->name('login.index');
     Route::post('login', [LoginController::class, 'authenticate'])->name('auth.login');
     Route::get('register', [RegisterController::class, 'index'])->name('register.index');
-    Route::middleware('auth')->get('logout', LogoutController::class)->name('auth.logout');
 });
 Route::get('mail/booking', MailController::class)->name('mail.booking');
+Route::get('logout', LogoutController::class)->name('auth.logout');
 require_once('admin.php');

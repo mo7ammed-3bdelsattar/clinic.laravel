@@ -38,7 +38,7 @@
                                 <td>{{substr($user->email,0,15).".."}}</td>
                                 <td>{{substr($user->phone,0,11).".."}}</td>
                                 <td>
-                                    <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($user->image,'user')}}" alt="Image" width="100" height="100">
+                                    <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($user->image?->path,'user')}}" alt="Image" width="100" height="100">
                                 </td>
                                 <td>
                                     <a class="btn btn-warning" href="{{route('admin.users.edit',$user->id)}}">Edit</a>

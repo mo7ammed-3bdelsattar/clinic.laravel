@@ -17,23 +17,22 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\Admin::factory()->create([
+        \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'Admin@gmail.com',
+            'phone'=>'01122216608',
             'password' =>Hash::make('123456789'),
-            'type' =>'admin'
+            'type' =>1,
+            'gender' =>1,
         ]);
         \App\Models\Admin::factory()->create([
-            'name' => 'Manager',
-            'email' => 'Manager@gmail.com',
-            'password' =>Hash::make('123456789'),
-            'type' =>'manager'
+            'user_id' => 1,
         ]);
 
         $this->call([
-            AdminSeeder::class,            
-            MajorSeeder::class,
-            UserSeeder::class,
+            // AdminSeeder::class,            
+            // MajorSeeder::class,
+            // UserSeeder::class,
             ])
         ;
     }

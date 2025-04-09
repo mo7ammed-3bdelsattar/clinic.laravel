@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class AdminProfileController extends Controller
+class ProfileController extends Controller
 {
     public function __invoke(Request $request){
         $admin=Auth::guard('admin')->user();

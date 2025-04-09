@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\Admin;
+use App\Traits\UserTrait;
+use App\Enums\UserTypesEnum;
 use Illuminate\Http\Request;
+use App\Enums\UserGendersEnum;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AdminRequest;
 use App\Http\Controllers\Controller;
@@ -18,6 +21,7 @@ use Illuminate\Support\Facades\Storage;
  */
 class AdminController extends Controller
 {
+    use UserTrait;
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +31,7 @@ class AdminController extends Controller
     {
         $admin = auth('admin')->user();
         abort_if(Gate::allows('doctor'),403);
-        $admins = Admin::orderBy('id', 'desc')->paginate(10);
+        $admins = Admin::with(['user','user.image'])->orderBy('id', 'desc')->paginate(10);
         return view('admin.pages.admins.index', compact('admins'));
     }
 
@@ -39,8 +43,10 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        abort_if(Gate::denies('admin'),403);
-        return view('admin.pages.admins.edit', compact('admin'));
+        $genders=UserGendersEnum::all();
+        $types=UserTypesEnum::all();
+        // $admin= $admin->user;
+        return view('admin.pages.admins.edit', compact(['admin','genders','types']));
     }
 
     /**
@@ -52,19 +58,14 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, Admin $admin)
     {
-        abort_if(!Gate::allows('admin'),403);
+        // abort_if(!Gate::allows('admin'),403);
 
-        $data = $request->validated();
-        if ($request->hasFile('image')) {
-            if ($admin->image) {
-                Storage::disk('public')->delete($admin->image);
-            }
-            $image = $request->file('image');
-            $filename = $image->store('/admins', 'public');
-            $data['image'] = $filename;
-        }
-        $data['password'] = Hash::make($request->password);
-        Admin::where('id', $admin->id)->update($data);
+        $user = $admin->user;
+        $data = $this->updateUser($request, $user);
+        $admindata = [
+            'updated_at' => now(),
+        ];
+        $admin->update($admindata);
         return redirect()->route('admin.admins.index')->with('success', 'admin updated successfully');
     }
     
@@ -76,7 +77,9 @@ class AdminController extends Controller
     public function create()
     {
         abort_if(Gate::allows('doctor'),403);
-        return view('admin.pages.admins.create');
+        $genders=UserGendersEnum::all();
+        $types=UserTypesEnum::all();
+        return view('admin.pages.admins.create',compact(['genders','types']));
     }
 
     /**
@@ -88,22 +91,12 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        abort_if(Gate::allows('doctor'),403);
-
-        try {
-            $data = $request->validated();
-            // dd($data);
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $filename = $image->store('/admins', 'public');
-                $data['image'] = $filename;
-            }
-            $data['password'] = Hash::make($request->password);
-            Admin::create($data);
-            return redirect()->route('admin.admins.index')->with('success', 'admin added successfully');
-        } catch (Exception $e) {
-            dd($e);
-        }
+        // abort_if(Gate::allows('doctor'),403);
+        $data = $request->validated();
+        $user = $this->createUser($request, $data);
+        Admin::create(['user_id'=>$user->id]);
+        return redirect()->route('admin.admins.index')->with('success', 'admin added successfully');
+       
     }
 
     /**
@@ -114,23 +107,12 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        abort_if(!Gate::allows('admin'),403);
-        $imagePath = null;
-        if ($admin->image) {
-            $imagePath = $admin->image;
-        }
-        try {
-            DB::beginTransaction();
-            $admin->delete();
-            if ($imagePath) {
-                // Delete the image from storage
-                Storage::disk('public')->delete($imagePath);
-            }
-            DB::commit();
-            return redirect()->back()->with('success', 'admin deleted successfully');
-        } catch (Exception $e) {
-            DB::rollBack();
-            return redirect()->back()->with('errors', 'This admin can not be deleted');
-        }  
+       if($admin->user->image){
+        Storage::delete('public/' . $admin->user->image->path);
+        $admin->user->image()->delete();
+       }
+         $admin->user->delete();
+         $admin->delete();
+        return redirect()->back()->with('success', 'admin deleted successfully');
     }
 }

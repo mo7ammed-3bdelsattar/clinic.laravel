@@ -10,21 +10,24 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name" value="{{old('name')}}">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Enter Name"
+                    value="{{old('name')}}">
                 @error('name')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" value="{{old(key: 'email')}}">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email"
+                    value="{{old(key: 'email')}}">
                 @error('email')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="text" name="phone" class="form-control" id="phone" placeholder="Enter Phone" value="{{old(key: 'phone')}}">
+                <input type="text" name="phone" class="form-control" id="phone" placeholder="Enter Phone"
+                    value="{{old(key: 'phone')}}">
                 @error('phone')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -37,14 +40,29 @@
                 @enderror
             </div>
             <div class="form-group">
-            <label for="type">Type</label>
-            <select class="form-select form-control" aria-label="Default select example" name="type" >
-                <option value="doctor" selected>Doctor</option>
-                <option value="manager">Manager</option>
-                <option value="admin">Admin</option>
-                <option value="doctor">Doctor</option>
-            </select>
-            @error('type')
+                <label for="type">Type</label>
+                <select class="form-select form-control" aria-label="Default select example" name="type">
+                    <option value="" disabled selected>Select Type</option>
+                    @foreach ($types as $type) 
+                    <option value="{{ $type}}" selected>{{
+                        App\Enums\UserTypesEnum::from($type)->label() }}</option>
+                    @endforeach
+                </select>
+                @error('type')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-select form-control" aria-label="Default select example" name="gender">
+                    <option value="" disabled selected>Select Gender</option>
+                    @foreach ($genders as $gender)
+                    <option value="{{ $gender }}" {{ old('gender')==$gender ? 'selected' : '' }}>
+                        {{ \App\Enums\UserGendersEnum::from($gender)->label() }}
+                    </option>
+                    @endforeach
+                </select>
+                @error('gender')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
             </div>

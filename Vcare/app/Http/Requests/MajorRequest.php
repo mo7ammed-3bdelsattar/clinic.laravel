@@ -24,8 +24,9 @@ class MajorRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'title'                 => 'required|string|max:255',
+            'description'           => 'nullable|string|max:300',
+            'image'                 => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
         ];
     }
 }
