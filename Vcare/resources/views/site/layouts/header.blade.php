@@ -12,6 +12,9 @@
                     <a type="button" class="btn navigation--button text-white" href="{{route("home.index")}}">Home</a>
                     <a type="button" class="btn navigation--button text-white" href="{{route("majors.index")}}">majors</a>
                     <a type="button" class="btn navigation--button text-white" href="{{route("doctors.index")}}">Doctors</a>
+                    @if (Auth::user())
+                    <a type="button" class="btn navigation--button text-white" href="{{route("booking.show")}}">Bookings</a>
+                    @endif
                     @if (Auth::guard('admin')->user())
                     <a type="button" class="btn navigation--button text-white" href="{{route("admin.dashboard")}}">Dashboard</a>
                     @endif
@@ -33,7 +36,7 @@
                     <i class="fa fa-fw fa-search text-light"></i>
                 </a>
                 @if (Auth::user())
-                <a class="nav-icon position-relative text-decoration-none" href="">
+                <a class="nav-icon position-relative text-decoration-none" href="{{ route('profile') }}">
                     <i class="fas fa-user text-light"></i>
                     <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
                 </a>

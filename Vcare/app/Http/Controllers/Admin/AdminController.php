@@ -29,8 +29,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = auth('admin')->user();
-        abort_if(Gate::allows('doctor'),403);
+        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
         $admins = Admin::with(['user','user.image'])->orderBy('id', 'desc')->paginate(10);
         return view('admin.pages.admins.index', compact('admins'));
     }
@@ -43,6 +42,7 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
+        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
         $genders=UserGendersEnum::all();
         $types=UserTypesEnum::all();
         // $admin= $admin->user;
@@ -58,7 +58,7 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, Admin $admin)
     {
-        // abort_if(!Gate::allows('admin'),403);
+        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
 
         $user = $admin->user;
         $data = $this->updateUser($request, $user);
@@ -76,7 +76,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::allows('doctor'),403);
+        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
         $genders=UserGendersEnum::all();
         $types=UserTypesEnum::all();
         return view('admin.pages.admins.create',compact(['genders','types']));
@@ -91,7 +91,7 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        // abort_if(Gate::allows('doctor'),403);
+        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
         $data = $request->validated();
         $user = $this->createUser($request, $data);
         Admin::create(['user_id'=>$user->id]);
@@ -107,6 +107,8 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
+        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
+        
        if($admin->user->image){
         Storage::delete('public/' . $admin->user->image->path);
         $admin->user->image()->delete();

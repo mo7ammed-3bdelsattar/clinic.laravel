@@ -4,7 +4,9 @@
 <div class="card card-primary">
     <div class="card-header">
         <h3 class="card-title">Update Doctor Data</h3>
+        <a href="{{ route('admin.appointments.index',$doctor->id) }}" class="btn btn-sm btn-info float-right">Appointments</a>
     </div>
+
     <form action="{{route('admin.doctors.update',$doctor->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')

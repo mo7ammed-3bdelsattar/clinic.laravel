@@ -22,17 +22,17 @@ class DoctorController extends Controller
     use UserTrait;
     public function index()
     {
-        abort_if(Gate::allows('doctor'),403);
-        $doctors=Doctor::with('user','user.image','major')->orderBy('id','desc')->paginate(10);
-        return view('admin.pages.doctors.index',compact('doctors'));
+        abort_if(Gate::allows('doctor'), 403);
+        $doctors = Doctor::with('user', 'user.image', 'major','appointments')->orderBy('id', 'desc')->paginate(10);
+        return view('admin.pages.doctors.index', compact('doctors'));
     }
     public function edit(Doctor $doctor)
     {
         // abort_if(Gate::denies('admin'),403);
-        $majors=Major::get();
-        $genders=UserGendersEnum::all();
-        $types=UserTypesEnum::all();
-        return view('admin.pages.doctors.edit',compact(['doctor','majors','types','genders']));
+        $majors = Major::get();
+        $genders = UserGendersEnum::all();
+        $types = UserTypesEnum::all();
+        return view('admin.pages.doctors.edit', compact(['doctor', 'majors', 'types', 'genders']));
     }
     public function update(DoctorRequest $request, Doctor $doctor)
     {
@@ -50,33 +50,33 @@ class DoctorController extends Controller
     }
     public function create()
     {
-        abort_if(Gate::allows('doctor'),403);
-        $majors=Major::get();
-        $genders=UserGendersEnum::all();
-        $types=UserTypesEnum::all();
-        return view('admin.pages.doctors.create',compact(['majors','types','genders']));
+        abort_if(Gate::allows('doctor'), 403);
+        $majors = Major::get();
+        $genders = UserGendersEnum::all();
+        $type = UserTypesEnum::DOCTOR;
+        return view('admin.pages.doctors.create', compact(['majors', 'type', 'genders']));
     }
-        public function store(DoctorRequest $request)
+    public function store(DoctorRequest $request)
     {
         // dd($request->all());
-            $data = $request->validated();
-            $user = $this->createUser($request, $data);
+        $data = $request->validated();
+        $user = $this->createUser($request, $data);
         Doctor::create([
-            'user_id'=>$user->id,
-            'major_id'=>$data['major_id'],
-            'price'=> $data['price'],
-            'address'=> $data['address'],
+            'user_id' => $user->id,
+            'major_id' => $data['major_id'],
+            'price' => $data['price'],
+            'address' => $data['address'],
         ]);
         return redirect()->route('admin.doctors.index')->with('success', 'doctor added successfully');
     }
     public function destroy(Doctor $doctor)
     {
-        if($doctor->user->image){
+        if ($doctor->user->image) {
             Storage::delete('public/' . $doctor->user->image->path);
             $doctor->user->image()->delete();
-           }
-             $doctor->user->delete();
-             $doctor->delete();
-            return redirect()->back()->with('success', 'admin deleted successfully');
+        }
+        $doctor->user->delete();
+        $doctor->delete();
+        return redirect()->back()->with('success', 'admin deleted successfully');
     }
 }

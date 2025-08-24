@@ -3,7 +3,7 @@
 @section('content')
 <div class="card card-primary">
     <div class="card-header">
-        <h3 class="card-title">Fill New Doctor Data</h3>
+        <h3 class="card-title">Fill New Admin Data</h3>
     </div>
     <form action="{{route('admin.admins.store')}}" method="POST" enctype="multipart/form-data">
         @csrf

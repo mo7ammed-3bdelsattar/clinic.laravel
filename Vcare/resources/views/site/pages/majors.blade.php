@@ -16,7 +16,7 @@
             <img src="{{FileHelper::get_file_path($major->image?->path)}}" class="card-img-top rounded-circle card-image-circle" alt="major">
             <div class="card-body d-flex flex-column gap-1 justify-content-center">
                 <h4 class="card-title fw-bold text-center">{{$major->title}}</h4>
-                <a href="" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                <a href="{{ route('majors.show', $major->id) }}" class="btn btn-outline-primary card-button">Browse Doctors</a>
             </div>
         </div>
         @endforeach

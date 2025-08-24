@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 use Toastr;
 
 use Illuminate\Validation\Rule;
+use App\Http\Requests\UserRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DoctorRequest extends FormRequest
@@ -33,8 +34,9 @@ class DoctorRequest extends FormRequest
                 Rule::unique('users', 'email')->ignore(($this->doctor)?$this->doctor->user:null),
             ],
             'price' => 'required|numeric',
-            'address'=> 'nullable|string',
+            'address'=> 'required|string',
             'major_id' => 'required|exists:majors,id',
+            'doctor_id' => 'required|exists:doctors,id'
         ];
 
         return array_merge($userRules, $doctorRules);

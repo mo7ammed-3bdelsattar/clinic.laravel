@@ -1,10 +1,7 @@
 @extends('admin.master')
 @section('title','Admins')
-@section('adminsActivity','active')
 @section('content')
 <div class="container">
-    @include('inc.success')
-    @include('inc.errors')
     <div class="card">
         <div class="card-header border-transparent">
             <a href="{{route('admin.admins.create')}}" class="btn btn-sm btn-info float-left">Place New admin</a>

@@ -21,6 +21,12 @@ class MajorController extends Controller
         // dd($majors[0]->image[0]->path);
         return view('admin.pages.majors.index', compact('majors'));
     }
+    public function show(Major $major)
+    {
+        abort_if(Gate::allows('doctor'),403);
+        dd($major->doctors());
+        return view('admin.pages.majors.show', compact('major'));
+    }
     public function edit(Major $major)
     {
         abort_if(Gate::allows('doctor'),403);
@@ -30,8 +36,8 @@ class MajorController extends Controller
     public function update(MajorRequest $request, Major $major)
     {
         abort_if(Gate::allows('doctor'),403);
-
-        $data = $request->validated();
+        $data = $request->only('title', 'description');
+        // dd($data);
         if ($request->hasFile('image')) {
             if ($major->image) {
                 Storage::delete('public/' . $major->image->path);
@@ -57,7 +63,6 @@ class MajorController extends Controller
     {
         abort_if(Gate::allows('doctor'),403);
         $data = $request->except('image');
-        // $data=$data->except('image');
         $major=Major::create($data);
         if ($request->hasFile('image')) {
             $image = $request->file('image');

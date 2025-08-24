@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Major;
 use App\Models\Review;
+use App\Models\Booking;
+use App\Models\Appointment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -10,7 +14,7 @@ class Doctor extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'adress',
+        'address',
         'price',
         'major_id',
         'user_id',
@@ -26,6 +30,9 @@ class Doctor extends Model
     }
     public function reviews(){
         return $this->hasMany(Review::class);
+    }
+    public function bookings(){
+        return $this->hasMany(Booking::class);
     }
     
     

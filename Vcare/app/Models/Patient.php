@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\User;
+use App\Models\Review;
+use App\Models\Booking;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory , HasRoles;
     protected $fillable=[
         'user_id',
     ];

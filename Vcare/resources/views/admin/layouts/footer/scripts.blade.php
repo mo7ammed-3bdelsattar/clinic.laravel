@@ -22,3 +22,7 @@
 <script src="{{asset('admin')}}/dist/js/pages/dashboard2.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/laravel-echo/dist/echo.iife.js"></script>
+@vite(['resources/js/app.js'])
+
+@stack('scripts')

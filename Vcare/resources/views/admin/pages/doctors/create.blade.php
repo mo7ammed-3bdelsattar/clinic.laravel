@@ -2,6 +2,7 @@
 @section('title','CreateDoctor')
 @section('doctorsActivity','active')
 @section('content')
+
 <div class="card card-primary">
     <div class="card-header">
         <h3 class="card-title">Fill New Doctor Data</h3>
@@ -53,11 +54,7 @@
             <div class="form-group">
                 <label for="type">Type</label>
                 <select class="form-select form-control" aria-label="Default select example" name="type">
-                    <option value="" disabled selected>Select Type</option>
-                    @foreach ($types as $type) 
-                    <option value="{{ $type}}">{{
-                        App\Enums\UserTypesEnum::from($type)->label() }}</option>
-                    @endforeach
+                    <option value="{{ $type->value }}" selected>{{ $type->label() }}</option>
                 </select>
                 @error('type')
                 <span class="text-danger">{{$message}}</span>

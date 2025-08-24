@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Exception;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
@@ -77,5 +78,29 @@ class UserController extends Controller
             DB::rollBack();
             return redirect()->back()->with('errors', 'This user can not be deleted');
         }
+    }
+
+    public function assignRole(Request $request,$id)
+    {
+        $user = User::findOrFail($id);
+        if($request->guard_name == 'admin'){
+            unset($user);
+            $user= Admin::where('user_id', $id)->first();
+        }
+        $data = $request->validate([
+            'name' => 'required|string',
+        ]);
+        if ($data['name']) {
+            $user->assignRole($data['name']);
+            return redirect()->back()->with('success', 'Role assigned successfully');
+        }
+        return redirect()->route('admin.dashboard')->with('error', 'No role selected');
+    }
+    public function addRole($id)
+    {
+        $user = User::findOrFail($id);
+        $roles = \Spatie\Permission\Models\Role::all();
+        return view('admin.pages.roles.add-role', compact('user', 'roles'));
+        
     }
 }

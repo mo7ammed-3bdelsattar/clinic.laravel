@@ -1,6 +1,5 @@
 @extends('admin.master')
 @section('title','CreateMajor')
-@section('majorsActivity','active')
 @section('content')
 <div class="card card-primary">
     <div class="card-header">

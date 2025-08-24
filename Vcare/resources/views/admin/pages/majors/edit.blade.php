@@ -12,8 +12,16 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title" value="{{$major->title}}">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title"
+                        value="{{$major->title}}">
                     @error('title')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="description">description</label>
+                    <textarea name="description" class="form-control" id="description">{{$major->description}}</textarea>
+                    @error('description')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
                 </div>

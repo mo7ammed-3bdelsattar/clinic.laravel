@@ -2,14 +2,8 @@
         <div class="row gap-2">
 
             <div class="col-sm order-sm-1">
-                <h1 class="h1">About Us</h1>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa nesciunt repellendus itaque,
-                    laborum
-                    saepe
-                    enim maxime, delectus, dicta cumque error cupiditate nobis officia quam perferendis consequatur
-                    cum
-                    iure
-                    quod facere.</p>
+                <h1 class="h1">{{ $banner_footer->title }}</h1>
+                <p>{{ $banner_footer->description }}</p>
             </div>
             <div class="col-sm order-sm-2">
                 <h1 class="h1">Links</h1>
@@ -29,7 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.min.js"
         integrity="sha512-fHY2UiQlipUq0dEabSM4s+phmn+bcxSYzXP4vAXItBvBHU7zAM/mkhCZjtBEIJexhOMzZbgFlPLuErlJF2b+0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        @stack('footer-scripts')
+        @stack('scripts')
 </body>
 
 </html>

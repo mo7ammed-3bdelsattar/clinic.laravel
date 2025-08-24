@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/chats', [\App\Http\Controllers\MessageController::class, 'index'])->name('api.chats.index');
+Route::get('/chats/{receiver}', [\App\Http\Controllers\MessageController::class, 'chatForm'])->name('api.chats.chatForm');
+Route::post('/admin/chats/{receiver}', [\App\Http\Controllers\MessageController::class, 'send'])->name('api.chats.send');

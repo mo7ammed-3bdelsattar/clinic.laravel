@@ -1,10 +1,7 @@
 @extends('admin.master')
 @section('title','Doctors')
-@section('doctorsActivity','active')
 @section('content')
 <div class="container">
-    @include('inc.success')
-    @include('inc.errors')
     <div class="card">
         <div class="card-header border-transparent">
             <a href="{{route('admin.doctors.create')}}" class="btn btn-sm btn-info float-left">Place New Doctor</a>
@@ -40,16 +37,24 @@
                                 <td>{{substr($doctor->user->email,0,15).".."}}</td>
                                 <td>{{substr($doctor->user->phone,0,11).".."}}</td>
                                 <td>
-                                    <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($doctor->user->image?->path,'user')}}" alt="Image" width="100" height="100">
+                                    <img class="img-circle img-bordered-sm"
+                                        src="{{FileHelper::get_file_path($doctor->user->image?->path,'user')}}"
+                                        alt="Image" width="100" height="100">
                                 </td>
                                 <td>{{$doctor->major->title}}</td>
-                                <td>{{$doctor->dates}}</td>
+                                <td>
+                                    @foreach ($doctor->appointments as $appointment)
+                                        [{{\App\Enums\DaysEnum::from($appointment->date)->label()}}]
+                                    @endforeach
+                                </td>
                                 <td>
                                     @if (Gate::denies('manager'))
-                                    <a class="btn btn-warning" href="{{route('admin.doctors.edit',$doctor->id)}}">Edit</a>
+                                    <a class="btn btn-warning"
+                                        href="{{route('admin.doctors.edit',$doctor->id)}}">Edit</a>
                                     @endif
                                     <div class="btn-group" role="group">
-                                        <form class="d-inline" action="{{route('admin.doctors.destroy',$doctor->id)}}" method="post">
+                                        <form class="d-inline" action="{{route('admin.doctors.destroy',$doctor->id)}}"
+                                            method="post">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger" type="submit">Delete</button>

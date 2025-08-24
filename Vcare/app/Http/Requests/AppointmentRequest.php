@@ -23,7 +23,7 @@ class AppointmentRequest extends FormRequest
     {
         return [
             'doctor_id'         => 'required|exists:doctors,id',
-            'date'              => 'required|date',
+            'date'              => 'required|numeric|in:1,2,3,4,5,6,7',
             'start_at'          => 'required|date_format:H:i',
             'end_at'            => 'required|date_format:H:i|after:start_at',
         ];

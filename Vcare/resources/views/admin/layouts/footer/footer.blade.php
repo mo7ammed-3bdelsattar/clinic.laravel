@@ -1,4 +1,5 @@
 
+
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -15,7 +16,6 @@
 </footer>
 </div>
 <!-- ./wrapper -->
-
 @include('admin.layouts.footer.scripts')
 </body>
 

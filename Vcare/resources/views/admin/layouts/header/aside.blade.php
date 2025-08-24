@@ -37,32 +37,62 @@ $admin =Auth::guard('admin')->user();
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item " >
-                            <a href="{{route('admin.dashboard')}}" class="nav-link @yield('homeActivity')">
+                            <a href="{{route('admin.dashboard')}}" class="nav-link {{ Route::is('admin.dashboard') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
                         @if (Gate::denies('doctor'))
                         <li class="nav-item">
-                            <a href="{{route('admin.majors.index')}}" class="nav-link @yield('majorsActivity')">
+                            <a href="{{route('admin.majors.index')}}" class="nav-link {{ Route::is('admin.majors.*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Majors</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.admins.index')}}" class="nav-link @yield('adminsActivity')">
+                            <a href="{{route('admin.banners.index')}}" class="nav-link {{ Route::is('admin.banners.*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Banners</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.roles.index')}}" class="nav-link {{ Route::is('admin.roles.*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Roles</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.permissions.index')}}" class="nav-link {{ Route::is('admin.permissions.*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Permissions</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.bookings.index')}}" class="nav-link {{ Route::is('admin.bookings.*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bookings</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.admins.index')}}" class="nav-link {{ Route::is('admin.admins.*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Admins</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.doctors.index')}}" class="nav-link @yield('doctorsActivity')">
+                            <a href="{{route('admin.doctors.index')}}" class="nav-link {{ Route::is('admin.doctors.*')|| Route::is('admin.appointments.*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Doctors</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.users.index')}}" class="nav-link @yield('usersActivity')">
+                            <a href="{{route('admin.patients.index')}}" class="nav-link {{ Route::is('admin.patients.*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>patients</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.users.index')}}" class="nav-link {{ Route::is('admin.users.*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Users</p>
                             </a>

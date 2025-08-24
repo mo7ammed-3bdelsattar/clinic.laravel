@@ -19,7 +19,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/site/home')->with('success',"you're logged in now!" );
+            return redirect()->intended('/')->with('success',"you're logged in now!" );
         }
  
         return back()->withErrors([

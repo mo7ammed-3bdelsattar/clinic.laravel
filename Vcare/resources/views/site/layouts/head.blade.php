@@ -17,12 +17,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.rtl.min.css"
         integrity="sha512-wO8UDakauoJxzvyadv1Fm/9x/9nsaNyoTmtsv7vt3/xGsug25X7fCUWEyBh1kop5fLjlcrK3GMVg8V+unYmrVA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href={{asset("site/styles/pages/main.css")}} >
 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href={{asset("site/styles/pages/main.css")}}>
+    @stack('styles')
     <title> {{env('APP_NAME')}} | @yield('title') </title>
+    <style>
+        .chat-fixed {
+            position: fixed;
+            bottom: 20px;
+            /* المسافة من تحت */
+            right: 20px;
+            /* المسافة من اليمين */
+            background-color: #25D366;
+            /* لون شبيه بالواتساب */
+            color: white;
+            padding: 12px 16px;
+            border-radius: 50px;
+            font-size: 16px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 9999;
+            /* عشان يبقى فوق أي عنصر */
+        }
+
+        .chat-fixed:hover {
+            background-color: #1ebe5d;
+        }
+    </style>
 </head>
 
-<body></body>
+<body>
