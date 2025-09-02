@@ -26,9 +26,8 @@ It helps manage doctors, patients, appointments, payments, and provides real-tim
 - Appointments booking system.  
 - Roles & permissions (Admin, Doctor, Patient).  
 - Social login with Google/Facebook (via Socialite).  
-- Real-time notifications & chat (Laravel Reverb + Pusher).  
-- Multi-language support (Localization).  
-- Payments through PayPal.  
+- Real-time chat (Laravel Reverb + Pusher).  
+- Sending Email with mailtrab
 - Toastr notifications for a better UX.  
 
 ---
