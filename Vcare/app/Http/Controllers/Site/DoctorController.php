@@ -8,8 +8,12 @@ use App\Http\Controllers\Controller;
 
 class DoctorController extends Controller
 {
-    public function __invoke(Request $request ){
+    public function index(Request $request ){
         $doctors= Doctor::with('user','user.image','major')->orderBy('id','desc')->paginate(9);
         return view('site.pages.doctors',compact('doctors'));
+    }
+    public function show(string $id){
+        $doctor = Doctor::with('user','user.image','major')->where('user_id',$id)->first();
+        return view('site.pages.doctor-show',compact('doctor'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,15 +13,21 @@ class BannerController extends Controller
 {
     public function index()
     {
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('banners.view'), 403);
         $banners = Banner::with('image')->paginate(10);
-        return view('admin.pages.banners.index', compact('banners'));
+        return view('admin.pages.banners.index', compact('banners','auth'));
     }
     public function create()
     {
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('banners.create'), 403);
         return view('admin.pages.banners.create');
     }
     public function store(BannerRequest $request)
     {
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('banners.create'), 403);
         $data = $request->validated();
 
         $banner = Banner::create($data);
@@ -35,12 +42,16 @@ class BannerController extends Controller
     }
     public function edit(Banner $banner)
     {
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('banners.update'), 403);
         return view('admin.pages.banners.edit', compact('banner'));
     }
     public function update(BannerRequest $request, Banner $banner)
     {
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('banners.update'), 403);
         $data = $request->validated();
-        $banner->update($data); 
+        $banner->update($data);
         if ($request->hasFile('image')) {
             if ($banner->image) {
                 Storage::delete('public/' . $banner->image->path);
@@ -54,6 +65,8 @@ class BannerController extends Controller
     }
     public function destroy(Banner $banner)
     {
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('banners.delete'), 403);
         if ($banner->image) {
             Storage::delete('public/' . $banner->image->path);
             $banner->image()->delete();

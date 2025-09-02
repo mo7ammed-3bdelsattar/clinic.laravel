@@ -29,9 +29,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('admins.manage'), 403);
         $admins = Admin::with(['user','user.image'])->orderBy('id', 'desc')->paginate(10);
-        return view('admin.pages.admins.index', compact('admins'));
+        return view('admin.pages.admins.index', compact(['admins','auth']));
     }
 
     /**
@@ -42,7 +43,8 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('admins.manage'), 403);
         $genders=UserGendersEnum::all();
         $types=UserTypesEnum::all();
         // $admin= $admin->user;
@@ -58,8 +60,8 @@ class AdminController extends Controller
      */
     public function update(AdminRequest $request, Admin $admin)
     {
-        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
-
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('admins.manage'), 403);
         $user = $admin->user;
         $data = $this->updateUser($request, $user);
         $admindata = [
@@ -76,7 +78,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('admins.manage'), 403);
         $genders=UserGendersEnum::all();
         $types=UserTypesEnum::all();
         return view('admin.pages.admins.create',compact(['genders','types']));
@@ -91,10 +94,16 @@ class AdminController extends Controller
      */
     public function store(AdminRequest $request)
     {
-        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('admins.manage'), 403);
         $data = $request->validated();
         $user = $this->createUser($request, $data);
-        Admin::create(['user_id'=>$user->id]);
+        $admin =Admin::create(['user_id'=>$user->id]);
+        if($data['type'] == 1){
+            $admin->assignRole('admin');
+        }else{
+            $admin->assignRole('manager');
+        }
         return redirect()->route('admin.admins.index')->with('success', 'admin added successfully');
        
     }
@@ -107,8 +116,9 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        $admin = auth('admin')->user() ?? abort(403, 'Unauthorized');
-        
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('admins.manage'), 403);
+
        if($admin->user->image){
         Storage::delete('public/' . $admin->user->image->path);
         $admin->user->image()->delete();

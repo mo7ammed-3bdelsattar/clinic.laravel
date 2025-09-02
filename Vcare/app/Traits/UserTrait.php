@@ -25,10 +25,6 @@ trait UserTrait
         $userData['password'] = Hash::make($userData['password']);
         $user = User::create($userData);
         if ($request->hasFile('image')) {
-            if ($user->image) {
-                Storage::delete('public/' . $user->image->path);
-                $user->image()->delete();
-            }
             $image = $request->file('image');
             $filename = $image->store('/users', 'public');
             if (!$user) {

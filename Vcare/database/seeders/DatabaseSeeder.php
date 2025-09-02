@@ -21,24 +21,71 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => 'Admin',
             'email' => 'Admin@gmail.com',
-            'phone'=>'01122216608',
-            'password' =>Hash::make('123456789'),
-            'type' =>1,
-            'gender' =>1,
+            'phone' => '01122216608',
+            'password' => Hash::make('123456789'),
+            'type' => 1,
+            'gender' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        \App\Models\Admin::factory()->create([
+        $admin = \App\Models\Admin::factory()->create([
             'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-        \App\Models\User::factory()->create([
+        $patient = \App\Models\User::factory()->create([
             'name' => 'Mohammed',
             'email' => 'Mohammed@gmail.com',
-            'phone'=>'01155666555',
-            'password' =>Hash::make('123456789'),
-            'type' =>4,
-            'gender' =>1,
+            'phone' => '01155666555',
+            'password' => Hash::make('123456789'),
+            'type' => 4,
+            'gender' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         \App\Models\Patient::factory()->create([
             'user_id' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Manager',
+            'email' => 'Manager@gmail.com',
+            'phone' => '01155766555',
+            'password' => Hash::make('123456789'),
+            'type' => 2,
+            'gender' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $manager = \App\Models\Admin::factory()->create([
+            'user_id' => 3,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        \App\Models\Major::factory()->create([
+            'title' => 'Internal Medicine (الباطنة)',
+            'description' => 'Internal Medicine (الباطنة)',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $doctor = \App\Models\User::factory()->create([
+            'name' => 'Doctor',
+            'email' => 'Doctor@gmail.com',
+            'phone' => '01155666558',
+            'password' => Hash::make('123456789'),
+            'type' => 3,
+            'gender' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        \App\Models\Doctor::factory()->create([
+            'user_id' => 4,
+            'price' => 400,
+            'address' => '123 Doctor St, City',
+            'major_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         \App\Models\Banner::create([
             'title' => 'Welcome to Vcare Clinic',
@@ -51,11 +98,11 @@ class DatabaseSeeder extends Seeder
             'name' => 'footer',
         ]);
         $this->call([
-            // AdminSeeder::class,            
-            // MajorSeeder::class,
-            // UserSeeder::class,
             PermissionSeeder::class
         ]);
-        ;
+        $admin->assignRole('admin');
+        $manager->assignRole('manager');
+        $doctor->assignRole('doctor');
+        $patient->assignRole('patient');
     }
 }

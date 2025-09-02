@@ -4,6 +4,7 @@
 <div class="card card-primary">
     <div class="card-header">
         <h3 class="card-title">Update Patient Data</h3>
+        <a href="{{route('admin.users.addRole', $patient->user->id)}}" class="btn btn-sm btn-info float-right">Add Role</a>
     </div>
     <form action="{{route('admin.patients.update',$patient->id)}}" method="POST" enctype="multipart/form-data">
         @csrf

@@ -2,7 +2,6 @@
 @section('title','Home')
 @section('content')
 @include('site.layouts.header')
-@include('inc.success')
 <div class="container-fluid bg-blue text-white pt-3">
     <div class="container pb-0">
         <div class="row gap-2">
@@ -50,9 +49,11 @@
                         <div class="card-body d-flex flex-column gap-1 justify-content-center">
                             <h4 class="card-title fw-bold text-center">{{$doctor->user->name}}</h4>
                             <h6 class="card-title fw-bold text-center">{{$doctor->major->title}}</h6>
+                            @hasrole('patient')
                             <a href="{{route("booking.index", $doctor->id)}}" class="btn btn-outline-primary
                                 card-button">Book an
                                 appointment</a>
+                            @endhasrole
                         </div>
                     </div>
 

@@ -22,13 +22,15 @@ class DoctorController extends Controller
     use UserTrait;
     public function index()
     {
-        abort_if(Gate::allows('doctor'), 403);
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('doctors.view'), 403);
         $doctors = Doctor::with('user', 'user.image', 'major','appointments')->orderBy('id', 'desc')->paginate(10);
-        return view('admin.pages.doctors.index', compact('doctors'));
+        return view('admin.pages.doctors.index', compact('doctors','auth'));
     }
     public function edit(Doctor $doctor)
     {
-        // abort_if(Gate::denies('admin'),403);
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('doctors.update'), 403);
         $majors = Major::get();
         $genders = UserGendersEnum::all();
         $types = UserTypesEnum::all();
@@ -36,7 +38,8 @@ class DoctorController extends Controller
     }
     public function update(DoctorRequest $request, Doctor $doctor)
     {
-        // dd($doctor);
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('doctors.update'), 403);
         $user = $doctor->user;
         $data = $this->updateUser($request, $user);
         $doctordata = [
@@ -50,7 +53,8 @@ class DoctorController extends Controller
     }
     public function create()
     {
-        abort_if(Gate::allows('doctor'), 403);
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('doctors.create'), 403);
         $majors = Major::get();
         $genders = UserGendersEnum::all();
         $type = UserTypesEnum::DOCTOR;
@@ -58,8 +62,10 @@ class DoctorController extends Controller
     }
     public function store(DoctorRequest $request)
     {
-        // dd($request->all());
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('doctors.create'), 403);
         $data = $request->validated();
+        // dd($data);
         $user = $this->createUser($request, $data);
         Doctor::create([
             'user_id' => $user->id,
@@ -71,6 +77,8 @@ class DoctorController extends Controller
     }
     public function destroy(Doctor $doctor)
     {
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('doctors.delete'), 403);
         if ($doctor->user->image) {
             Storage::delete('public/' . $doctor->user->image->path);
             $doctor->user->image()->delete();

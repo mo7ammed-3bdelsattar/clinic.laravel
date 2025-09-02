@@ -19,6 +19,7 @@ class BookingController extends Controller
     }
     public function store(BookingRequest $request){
         $data = $request->validated();
+        // dd($data);
         $patient = Auth::user()->patient->user;
         $booking=Booking::create($data);
         $date=rand(date('H', (int)$booking->appointment->start_at), date('H', (int)$booking->appointment->end_at));

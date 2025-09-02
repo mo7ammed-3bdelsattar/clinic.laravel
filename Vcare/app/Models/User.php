@@ -31,8 +31,9 @@ class User extends Authenticatable
         'phone',
         'type',
         'gender',
-        'image',
         'password',
+        'provider',
+        'provider_id'
     ];
 
     /**

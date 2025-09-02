@@ -24,6 +24,7 @@ class BookingRequest extends FormRequest
         return [
             'appointment_id' => 'required|exists:appointments,id',
             'patient_id' => 'required|exists:patients,id',
+            'doctor_id'  =>'required|exists:doctors,id',
         ];
     }
 }

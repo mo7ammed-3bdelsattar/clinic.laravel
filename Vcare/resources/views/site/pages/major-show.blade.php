@@ -17,8 +17,10 @@
             <div class="card-body d-flex flex-column gap-1 justify-content-center">
                 <h4 class="card-title fw-bold text-center">{{$doctor->user->name}}</h4>
                 <h6 class="card-title fw-bold text-center">{{$doctor->major->title}}</h6>
+                @hasrole('patient')
                 <a href="{{route("booking.index", $doctor->id)}}" class="btn btn-outline-primary card-button">Book an
                     appointment</a>
+                @endhasrole
             </div>
         </div>
         @endforeach

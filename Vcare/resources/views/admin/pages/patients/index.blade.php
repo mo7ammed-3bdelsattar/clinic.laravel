@@ -23,7 +23,6 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Image</th>
-                                <th>Type</th>
                                 <th>Gender</th>
                                 @if (Gate::denies('manager'))
                                 <th>Actions</th>
@@ -41,7 +40,6 @@
                                 <td>
                                     <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($patient->user->image?->path,'user')}}" alt="Image" width="100" height="100">
                                 </td>
-                                <td><span>{{$patient->user->type->label()}}</span></td>
                                 <td>{{$patient->user->gender->label()}}</td>
                                 @if (Gate::denies('manager'))
                                 <td>

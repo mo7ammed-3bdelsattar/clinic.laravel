@@ -18,10 +18,12 @@ class AdminAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::guard('admin')->user();
+        $user = Auth::guard('admin')->user()??auth()->user();
 
-        if (!$user || !Admin::where('user_id', $user->id)->exists()) {
-            return redirect()->route('admin.auth.login.index')->withErrors(['error' => 'You are not have permission to access this page']);
+        if (!$user) {
+            return redirect()->route('login.index')->withErrors(['error' => 'Please Login And Try Again!']);
+        }elseif(!Admin::where('user_id', $user->id)->exists()){
+            abort(403,'You are not have permission to access this page');
         }
         return $next($request);
     }

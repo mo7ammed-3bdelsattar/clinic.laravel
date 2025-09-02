@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Exception;
+use App\Models\Admin;
 use App\Models\Major;
 use Illuminate\Http\Request;
 use App\Http\Requests\MajorRequest;
@@ -14,28 +15,31 @@ use League\Flysystem\UrlGeneration\PublicUrlGenerator;
 
 class MajorController extends Controller
 {
+    
     public function index()
     {
-        abort_if(Gate::allows('doctor'),403);
+        $auth =auth('admin')->user()->admin ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('majors.view'), 403);
         $majors = Major::orderBy('id', 'desc')->with('image')->paginate(10);
-        // dd($majors[0]->image[0]->path);
-        return view('admin.pages.majors.index', compact('majors'));
+        return view('admin.pages.majors.index', compact('majors','auth'));
     }
     public function show(Major $major)
     {
-        abort_if(Gate::allows('doctor'),403);
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('majors.view'), 403);
         dd($major->doctors());
         return view('admin.pages.majors.show', compact('major'));
     }
     public function edit(Major $major)
     {
-        abort_if(Gate::allows('doctor'),403);
-
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('majors.update'), 403);
         return view('admin.pages.majors.edit', compact('major'));
     }
     public function update(MajorRequest $request, Major $major)
     {
-        abort_if(Gate::allows('doctor'),403);
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('majors.update'), 403);
         $data = $request->only('title', 'description');
         // dd($data);
         if ($request->hasFile('image')) {
@@ -57,11 +61,14 @@ class MajorController extends Controller
     }
     public function create()
     {
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('majors.create'), 403);
         return view('admin.pages.majors.create');
     }
     public function store(MajorRequest $request)
     {
-        abort_if(Gate::allows('doctor'),403);
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('majors.create'), 403);
         $data = $request->except('image');
         $major=Major::create($data);
         if ($request->hasFile('image')) {
@@ -78,7 +85,8 @@ class MajorController extends Controller
     }
     public function destroy(Major $major)
     {
-        abort_if(Gate::allows('doctor'),403);
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('majors.delete'), 403);
         try {
             if ($major->image) {
                 Storage::disk('public')->delete($major->image?->path);

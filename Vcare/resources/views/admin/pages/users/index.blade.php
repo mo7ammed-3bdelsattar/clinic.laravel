@@ -25,6 +25,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
+                                <th>Type</th>
                                 <th>Image</th>
                                 <th>Actions</th>
                             </tr>
@@ -37,6 +38,7 @@
                                 <td>{{substr($user->name,0,6).".."}}</td>
                                 <td>{{substr($user->email,0,15).".."}}</td>
                                 <td>{{substr($user->phone,0,11).".."}}</td>
+                                <td><span>{{$user->type->label()}}</span></td>
                                 <td>
                                     <img class="img-circle img-bordered-sm" src="{{FileHelper::get_file_path($user->image?->path,'user')}}" alt="Image" width="100" height="100">
                                 </td>

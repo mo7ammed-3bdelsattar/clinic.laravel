@@ -17,13 +17,9 @@ class DoctorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'phone'=>fake()->unique()->phoneNumber(),
-            'adress'=>fake()->address(),
-            'dates'=>strtolower(fake()->dateTimeBetween('now', '+1 week')->format('D-d/M-Y')),
+            'major_id'=>fake()->numberBetween(1,5),
+            'address'=>fake()->address(),
             'price'=>fake()->randomElement([200,250,300,350,400]),
-            'visitors'=>fake()->numberBetween(0,10),
             'user_id'=>fake()->unique()->numberBetween(1,25),
         ];
     }

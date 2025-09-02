@@ -6,6 +6,7 @@
         <div class="card-header">
             <h3 class="card-title">Update Booking Data</h3>
         </div>
+        
         <form action="{{route('admin.bookings.update',$booking->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
@@ -24,7 +25,6 @@
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-
         </form>
     </div>
 </div>

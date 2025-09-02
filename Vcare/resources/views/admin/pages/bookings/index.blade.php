@@ -35,24 +35,27 @@
                                     class="badge badge-{{ $booking->status=='visited'?'success':($booking->status=='pending'?'warning':'danger') }}">{{
                                     $booking->status }}</span></td>
                             <td>
-                                @if ($booking->status == 'pending')
-                                <form action="{{ route('booking.cancel', $booking->id) }}" class="d-inline"
-                                    method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
-                                </form>
-                                @endif
+                                @if($auth->hasAnyRole(['admin','manager']))
                                 <form action="{{ route('admin.bookings.destroy', $booking->id) }}" class="d-inline"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
-                                <a href="{{ route('admin.bookings.edit', $booking->id) }}"
-                                    class="btn btn-warning btn-sm">Edit</a>
+                                @endif
                                 <a href="{{ route('admin.bookings.show', $booking->id) }}"
                                     class="btn btn-info btn-sm">View</a>
+                                <form action="{{route('admin.bookings.update',$booking->id)}}" method="POST"
+                                    style="display: inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" name="status" class="btn btn-success btn-sm"
+                                        value="visited">Visited</button>
+                                    <button type="submit" name="status" class="btn btn-warning btn-sm"
+                                        value="pending">Pending</button>
+                                    <button type="submit" name="status" class="btn btn-danger btn-sm"
+                                        value="cancelled">Cancelled</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

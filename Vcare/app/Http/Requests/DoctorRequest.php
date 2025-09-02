@@ -36,7 +36,6 @@ class DoctorRequest extends FormRequest
             'price' => 'required|numeric',
             'address'=> 'required|string',
             'major_id' => 'required|exists:majors,id',
-            'doctor_id' => 'required|exists:doctors,id'
         ];
 
         return array_merge($userRules, $doctorRules);

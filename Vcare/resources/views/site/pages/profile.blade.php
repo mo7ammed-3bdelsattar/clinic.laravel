@@ -23,11 +23,12 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-sm">Update</button>
                                 </form>
-                                <form action="{{route('profile.destroyImage')}}" method="POST"  enctype="multipart/form-data">
+                                <form class="d-inline" action="{{route('profile.destroyImage')}}" method="POST"  enctype="multipart/form-data">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this image?');">Delete</button>
                                 </form>
+                                <h4 class="text-center">{{$user->name}}</h4>
                                 <p class="text-muted text-center">{{$user->type->label()}}</p>
                             </div>
                         <!-- /.card-body -->

@@ -33,6 +33,7 @@
                             <td>{{$role->guard_name}}</td>
                             <td>
                                 <a class="btn btn-warning" href="{{route('admin.roles.edit',$role->id)}}">Edit</a>
+                                @if($auth->can('roles.delete'))
                                 <div class="btn-group" role="group">
                                     <form class="d-inline" action="{{route('admin.roles.destroy',$role->id)}}" method="post">
                                         @csrf
@@ -40,6 +41,7 @@
                                         <button class="btn btn-danger" type="submit">Delete</button>
                                     </form>
                                 </div>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

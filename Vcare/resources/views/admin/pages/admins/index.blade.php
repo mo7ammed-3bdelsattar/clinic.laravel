@@ -4,7 +4,9 @@
 <div class="container">
     <div class="card">
         <div class="card-header border-transparent">
-            <a href="{{route('admin.admins.create')}}" class="btn btn-sm btn-info float-left">Place New admin</a>
+            @if($auth->hasRole('admin'))
+                <a href="{{route('admin.admins.create')}}" class="btn btn-sm btn-info float-left">Place New admin</a>
+            @endif
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -25,7 +27,7 @@
                                 <th>Image</th>
                                 <th>Type</th>
                                 <th>Gender</th>
-                                @if (Gate::denies('manager'))
+                                @if($auth->can('admins.manage'))
                                 <th>Actions</th>
                                 @endif
                             </tr>
@@ -48,10 +50,10 @@
                                 @endif
                                 <td><span class="badge {{$badge}}">{{$admin->user->type->label()}}</span></td>
                                 <td>{{$admin->user->gender->label()}}</td>
-                                @if (Gate::denies('manager'))
-                                <td>
-                                    <a class="btn btn-warning" href="{{route('admin.admins.edit',$admin->id)}}">Edit</a>
-                                    <div class="btn-group" role="group">
+                                @if($auth->can('admins.manage'))
+                                    <td>
+                                        <a class="btn btn-warning" href="{{route('admin.admins.edit',$admin->id)}}">Edit</a>
+                                        <div class="btn-group" role="group">
                                         <form class="d-inline" action="{{route('admin.admins.destroy',$admin->id)}}" method="post">
                                             @csrf
                                             @method('delete')

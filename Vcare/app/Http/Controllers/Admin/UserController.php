@@ -61,6 +61,8 @@ class UserController extends Controller
     }
     public function destroy(User $user)
     {
+        $auth = Admin::where('user_id', auth('admin')->id())->first() ?? abort(403, 'Unauthorized');
+        abort_if($auth->cannot('users.delete'), 403);
         $imagePath = null;
         if ($user->image) {
             $imagePath = $user->image;
@@ -80,27 +82,4 @@ class UserController extends Controller
         }
     }
 
-    public function assignRole(Request $request,$id)
-    {
-        $user = User::findOrFail($id);
-        if($request->guard_name == 'admin'){
-            unset($user);
-            $user= Admin::where('user_id', $id)->first();
-        }
-        $data = $request->validate([
-            'name' => 'required|string',
-        ]);
-        if ($data['name']) {
-            $user->assignRole($data['name']);
-            return redirect()->back()->with('success', 'Role assigned successfully');
-        }
-        return redirect()->route('admin.dashboard')->with('error', 'No role selected');
-    }
-    public function addRole($id)
-    {
-        $user = User::findOrFail($id);
-        $roles = \Spatie\Permission\Models\Role::all();
-        return view('admin.pages.roles.add-role', compact('user', 'roles'));
-        
-    }
 }

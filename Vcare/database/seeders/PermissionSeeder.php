@@ -22,6 +22,7 @@ class PermissionSeeder extends Seeder
                 'users.create',
                 'users.update',
                 'users.delete',
+                
                 'doctors.view',
                 'doctors.create',
                 'doctors.update',
@@ -32,10 +33,12 @@ class PermissionSeeder extends Seeder
                 'appointments.create',
                 'appointments.update',
                 'appointments.delete',
+                
                 'bookings.view',
                 'bookings.create',
                 'bookings.update',
                 'bookings.delete',
+                
                 'patients.view',
                 'patients.create',
                 'patients.update',
@@ -46,14 +49,31 @@ class PermissionSeeder extends Seeder
                 'messages.view',
                 'messages.create',
                 'messages.delete',
+                
                 'reviews.view',
                 'reviews.update',
                 'reviews.create',
                 'reviews.delete',
+                
                 'banners.view',
                 'banners.create',
                 'banners.update',
                 'banners.delete',
+
+                'majors.view',
+                'majors.create',
+                'majors.update',
+                'majors.delete',
+
+                'permissions.view',
+                'permissions.create',
+                'permissions.update',
+                'permissions.delete',
+
+                'roles.view',
+                'roles.create',
+                'roles.update',
+                'roles.delete',
 
             ],
 
